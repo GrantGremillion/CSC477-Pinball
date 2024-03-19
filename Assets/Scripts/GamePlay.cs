@@ -5,6 +5,8 @@ using UnityEngine;
 public class GamePlay : MonoBehaviour
 {
     public BallScript ball;
+    public Flipper flipperLeft;
+    public Flipper flipperRight;
 
     // Start is called before the first frame update
     void Start()
@@ -18,6 +20,14 @@ public class GamePlay : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.Space))
         {
             ball.Launch();
+        }
+
+        if (Input.GetKeyUp(KeyCode.LeftArrow)) {
+            
+            flipperLeft.Flip();
+        }
+        else if (Input.GetKeyUp(KeyCode.RightArrow)) {
+            flipperRight.Flip();
         }
     }
 }
