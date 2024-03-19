@@ -42,6 +42,7 @@ public class BallScript : MonoBehaviour
         rb.velocity = Vector3.zero;
         gameScript.readyToLaunch = true;
         gameScript.disableBlockingWall();
+        gameScript.scorePerTick = 100;
     }
 
 }

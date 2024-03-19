@@ -1,3 +1,4 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,34 +8,39 @@ public class GamePlay : MonoBehaviour
     public BallScript ball;
     public Flipper flipperLeft;
     public Flipper flipperRight;
-    public bool readyToLaunch;
+    public bool readyToLaunch = true;
     public int score = 0;
+    public int lives = 5;
     public GameObject blockingWall;
+    public int scorePerTick = 100;
 
     private float timeOfLaunch;
-    private int scorePerTick = 100;
     private float tickTime = 0.5f;
     private float timeOnBoard;
     private float timeOfLastTick;
+    private int numOfTicksEarned = 0;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        readyToLaunch = true;
-    }
 
-    // Update is called once per frame
+
     void Update()
     {
         handleKeyPresses();
 
         if (!readyToLaunch)
         {
+
+            
             timeOnBoard = Time.time - timeOfLaunch;
-            if (timeOnBoard - timeOfLastTick > tickTime)
+            if (Time.time - timeOfLastTick > tickTime)
             {
                 timeOfLastTick = Time.time;
                 score += scorePerTick;
+                numOfTicksEarned++;
+
+                if (numOfTicksEarned % 5 == 0)
+                {
+                    scorePerTick += 100;
+                } 
                 print(score);
             }
         }
@@ -58,7 +64,10 @@ public class GamePlay : MonoBehaviour
             flipperRight.Flip();
 
         if (Input.GetKeyDown(KeyCode.R))
+        {
+            print("HI");
             ResetAll();
+        }
     }
 
     public void enableBlockingWall()
@@ -75,6 +84,8 @@ public class GamePlay : MonoBehaviour
 
     public void ResetAll()
     {
-
+        ball.ResetBall();
+        score = 0;
+        lives = 5;
     }
 }
