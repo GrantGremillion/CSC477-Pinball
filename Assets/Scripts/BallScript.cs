@@ -8,6 +8,7 @@ public class BallScript : MonoBehaviour
     public float launchForce;
     public Transform ballStart;
     public Transform ballEnd;
+    public GamePlay gameScript;
 
     void Start()
     {
@@ -20,6 +21,7 @@ public class BallScript : MonoBehaviour
         {
             transform.position = ballStart.transform.position;
             rb.velocity = Vector3.zero;
+            gameScript.readyToLaunch = true;
         }
     }
 
