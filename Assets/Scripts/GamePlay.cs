@@ -1,11 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class GamePlay : MonoBehaviour
 {
-
+    public BallScript ball;
 
     // Start is called before the first frame update
     void Start()
@@ -18,7 +17,7 @@ public class GamePlay : MonoBehaviour
     {
         if (Input.GetKeyUp(KeyCode.Space))
         {
-            print("HI");
+            ball.Launch();
         }
     }
 }
