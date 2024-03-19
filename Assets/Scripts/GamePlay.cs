@@ -22,11 +22,11 @@ public class GamePlay : MonoBehaviour
             ball.Launch();
         }
 
-        if (Input.GetKeyUp(KeyCode.LeftArrow)) {
+        if (Input.GetKeyDown(KeyCode.LeftArrow)) {
             
             flipperLeft.Flip();
         }
-        else if (Input.GetKeyUp(KeyCode.RightArrow)) {
+        else if (Input.GetKeyDown(KeyCode.RightArrow)) {
             flipperRight.Flip();
         }
     }
