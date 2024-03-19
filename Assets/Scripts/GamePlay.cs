@@ -9,6 +9,7 @@ public class GamePlay : MonoBehaviour
     public Flipper flipperRight;
     public bool readyToLaunch;
     public int score = 0;
+    public GameObject blockingWall;
 
     private float timeOfLaunch;
     private int scorePerTick = 100;
@@ -46,7 +47,6 @@ public class GamePlay : MonoBehaviour
         if ((Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.UpArrow)) && readyToLaunch)
         {
             ball.Launch();
-            readyToLaunch = false;
             timeOfLaunch = Time.time;
             timeOfLastTick = Time.time;
         }
@@ -56,5 +56,25 @@ public class GamePlay : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
             flipperRight.Flip();
+
+        if (Input.GetKeyDown(KeyCode.R))
+            ResetAll();
+    }
+
+    public void enableBlockingWall()
+    {
+        blockingWall.GetComponent<BoxCollider>().enabled = true;
+        blockingWall.GetComponent<MeshRenderer>().enabled = true;
+    }
+
+    public void disableBlockingWall()
+    {
+        blockingWall.GetComponent<BoxCollider>().enabled = false;
+        blockingWall.GetComponent<MeshRenderer>().enabled = false;
+    }
+
+    public void ResetAll()
+    {
+
     }
 }

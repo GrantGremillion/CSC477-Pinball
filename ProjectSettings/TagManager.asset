@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - EndPosition
+  - InPlay
   layers:
   - Default
   - TransparentFX

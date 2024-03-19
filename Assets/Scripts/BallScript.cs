@@ -10,24 +10,38 @@ public class BallScript : MonoBehaviour
     public Transform ballEnd;
     public GamePlay gameScript;
 
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
     }
-    // Update is called once per frame
+
+
     void Update()
     {
-        if (Vector3.Distance(transform.position, ballEnd.position) < 1.5)
+        if (Vector3.Distance(transform.position, ballEnd.position) < 1.5) 
         {
-            transform.position = ballStart.transform.position;
-            rb.velocity = Vector3.zero;
-            gameScript.readyToLaunch = true;
+            ResetBall();
+        }
+
+        if (transform.position.x < 6 && gameScript.readyToLaunch)
+        {
+            gameScript.enableBlockingWall();
+            gameScript.readyToLaunch = false;
         }
     }
 
     public void Launch()
     {
         rb.AddForce(Vector3.forward * launchForce, ForceMode.Impulse);
+    }
+
+    public void ResetBall()
+    {
+        transform.position = ballStart.transform.position;
+        rb.velocity = Vector3.zero;
+        gameScript.readyToLaunch = true;
+        gameScript.disableBlockingWall();
     }
 
 }
