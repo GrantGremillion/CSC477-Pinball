@@ -4,29 +4,28 @@ using UnityEngine;
 
 public class BallScript : MonoBehaviour
 {
-    public Rigidbody rb;
+    private Rigidbody rb;
     public float launchForce;
     public Transform ballStart;
+    public Transform ballEnd;
 
+    void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
     // Update is called once per frame
     void Update()
     {
-        
+        if (Vector3.Distance(transform.position, ballEnd.position) < 1.5)
+        {
+            transform.position = ballStart.transform.position;
+            rb.velocity = Vector3.zero;
+        }
     }
 
     public void Launch()
     {
         rb.AddForce(Vector3.forward * launchForce, ForceMode.Impulse);
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        print("Ball reset.");
-        if (other.CompareTag("EndPosition"))
-        {
-            transform.position = ballStart.transform.position;
-            rb.velocity = Vector3.zero;
-        }
     }
 
 }
