@@ -13,6 +13,7 @@ public class GamePlay : MonoBehaviour
     public int score = 0;
     public int lives = 5;
     public GameObject blockingWall;
+    public GameObject canvas;
     public int scorePerTick = 100;
     public bool gameHasStarted = false;
 
@@ -22,9 +23,11 @@ public class GamePlay : MonoBehaviour
     private float timeOfLastTick;
     private int numOfTicksEarned = 0;
 
+
     void Start () {
         input = new PinballInput();
         input.Enable();
+        canvas.SetActive(true);
     }
 
     void Update()
