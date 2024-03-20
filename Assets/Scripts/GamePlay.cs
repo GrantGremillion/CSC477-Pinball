@@ -12,6 +12,7 @@ public class GamePlay : MonoBehaviour
     public int score = 0;
     public int lives = 5;
     public GameObject blockingWall;
+    public GameObject canvas;
     public int scorePerTick = 100;
     public bool gameHasStarted = false;
 
@@ -20,6 +21,11 @@ public class GamePlay : MonoBehaviour
     private float timeOnBoard;
     private float timeOfLastTick;
     private int numOfTicksEarned = 0;
+
+    void Start()
+    {
+        canvas.SetActive(true);
+    }
 
     void Update()
     {

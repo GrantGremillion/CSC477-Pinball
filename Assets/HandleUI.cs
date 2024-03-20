@@ -8,8 +8,7 @@ public class HandleUI : MonoBehaviour
     public GameObject inGame;
     public GamePlay gameplay;
 
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         mainMenu.SetActive(true);
         inGame.SetActive(false);
@@ -20,7 +19,6 @@ public class HandleUI : MonoBehaviour
         mainMenu.SetActive(false);
         inGame.SetActive(true);
         gameplay.gameHasStarted = true;
-        print("HIII");
     }
 
 }
