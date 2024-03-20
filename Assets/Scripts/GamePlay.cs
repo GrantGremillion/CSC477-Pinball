@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class GamePlay : MonoBehaviour
 {
+    [HideInInspector] public PinballInput input;
     public BallScript ball;
     public Flipper flipperLeft;
     public Flipper flipperRight;
@@ -20,6 +21,11 @@ public class GamePlay : MonoBehaviour
     private float timeOnBoard;
     private float timeOfLastTick;
     private int numOfTicksEarned = 0;
+
+    void Start () {
+        input = new PinballInput();
+        input.Enable();
+    }
 
     void Update()
     {
@@ -49,18 +55,18 @@ public class GamePlay : MonoBehaviour
         {
             /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-            if ((Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.UpArrow)) && readyToLaunch)
-            {
+
+            if (input.Default.FlipperLeftClick.WasPressedThisFrame()) {
+                flipperLeft.Flip();
+            }
+            else if (input.Default.FlipperRightClick.WasPressedThisFrame()) {
+                flipperRight.Flip();
+            }
+            else if (input.Default.Launch.WasReleasedThisFrame() && readyToLaunch) {
                 ball.Launch();
                 timeOfLaunch = Time.time;
                 timeOfLastTick = Time.time;
             }
-
-            if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
-                flipperLeft.Flip();
-
-            if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
-                flipperRight.Flip();
 
             if (Input.GetKeyDown(KeyCode.R))
                 ResetAll();
