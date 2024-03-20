@@ -13,14 +13,13 @@ public class GamePlay : MonoBehaviour
     public int lives = 5;
     public GameObject blockingWall;
     public int scorePerTick = 100;
+    public bool gameHasStarted = false;
 
     private float timeOfLaunch;
-    private float tickTime = 0.5f;
+    private float tickTime = 1f;
     private float timeOnBoard;
     private float timeOfLastTick;
     private int numOfTicksEarned = 0;
-
-
 
     void Update()
     {
@@ -28,8 +27,6 @@ public class GamePlay : MonoBehaviour
 
         if (!readyToLaunch)
         {
-
-            
             timeOnBoard = Time.time - timeOfLaunch;
             if (Time.time - timeOfLastTick > tickTime)
             {
@@ -40,33 +37,35 @@ public class GamePlay : MonoBehaviour
                 if (numOfTicksEarned % 5 == 0)
                 {
                     scorePerTick += 100;
-                } 
-                print(score);
+                }
             }
         }
-
 
     }
 
     void handleKeyPresses()
     {
-        if ((Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.UpArrow)) && readyToLaunch)
+        if (gameHasStarted)
         {
-            ball.Launch();
-            timeOfLaunch = Time.time;
-            timeOfLastTick = Time.time;
-        }
+            /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
-            flipperLeft.Flip();
+            if ((Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.UpArrow)) && readyToLaunch)
+            {
+                ball.Launch();
+                timeOfLaunch = Time.time;
+                timeOfLastTick = Time.time;
+            }
 
-        if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
-            flipperRight.Flip();
+            if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
+                flipperLeft.Flip();
 
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            print("HI");
-            ResetAll();
+            if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
+                flipperRight.Flip();
+
+            if (Input.GetKeyDown(KeyCode.R))
+                ResetAll();
+
+            /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         }
     }
 
