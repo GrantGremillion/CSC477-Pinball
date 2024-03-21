@@ -7,11 +7,15 @@ public class HandleUI : MonoBehaviour
     public GameObject mainMenu;
     public GameObject inGame;
     public GamePlay gameplay;
+    public Camera cam;
+    public Transform cameraPosition;
+    public GameObject ocean;
 
     void Awake()
     {
         mainMenu.SetActive(true);
         inGame.SetActive(false);
+        ocean.SetActive(true);
     }
 
     public void beginGame()
@@ -19,6 +23,7 @@ public class HandleUI : MonoBehaviour
         mainMenu.SetActive(false);
         inGame.SetActive(true);
         gameplay.gameHasStarted = true;
+        cam.transform.SetPositionAndRotation(cameraPosition.position, cameraPosition.rotation);
     }
 
 }

@@ -55,11 +55,12 @@ public class BallScript : MonoBehaviour
 
     public void OnCollisionEnter(Collision collision)
     {
-        if (collision.transform.tag == "Anchor")
+        if (!gameScript.readyToLaunch)
         {
-            print("HIT");
-            gameScript.score += 500;
+            if (collision.transform.tag == "Anchor")
+                gameScript.score += 500;
         }
+        
             
     }
 

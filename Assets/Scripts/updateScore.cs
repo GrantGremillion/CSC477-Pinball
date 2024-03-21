@@ -11,6 +11,9 @@ public class updateScore : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        textBox.SetText("Score: " + gameScript.score.ToString());
+        if (transform.tag == "Timer")
+            textBox.SetText($"Time: {gameScript.timeOnBoard.ToString()} s");
+        else
+            textBox.SetText("Score: " + gameScript.score.ToString());
     }
 }

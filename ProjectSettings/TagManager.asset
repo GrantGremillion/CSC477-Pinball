@@ -4,10 +4,9 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - EndPosition
-  - InPlay
   - Anchor
   - Board
+  - Timer
   layers:
   - Default
   - TransparentFX

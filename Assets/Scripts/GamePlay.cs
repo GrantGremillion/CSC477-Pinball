@@ -9,25 +9,34 @@ public class GamePlay : MonoBehaviour
     public BallScript ball;
     public Flipper flipperLeft;
     public Flipper flipperRight;
-    public bool readyToLaunch = true;
-    public int score = 0;
-    public int lives = 5;
     public GameObject blockingWall;
     public GameObject canvas;
-    public int scorePerTick = 100;
+    public Transform centerOfBoard;
+    public Transform cameraPosition;
     public bool gameHasStarted = false;
-    public Camera cam;
+    public bool readyToLaunch = true;
+    public int scorePerTick = 100;
+    public int score = 0;
+    public int lives = 5;
+    public float timeOnBoard;
 
+    private Camera cam;
+    private float timeOfGameStart;
     private float timeOfLaunch;
     private float tickTime = 1f;
-    private float timeOnBoard;
     private float timeOfLastTick;
+    private float cameraSwivelSpeed = 1/4f;
+    private float cameraSwivelDistance = 20f;
+    private float cameraSwivelHeight = 12f;
     private int numOfTicksEarned = 0;
 
+
     void Start () {
+        timeOfGameStart = Time.time;
         input = new PinballInput();
         input.Enable();
         canvas.SetActive(true);
+        cam = GetComponent<Camera>();
     }
 
     void Update()
@@ -37,7 +46,9 @@ public class GamePlay : MonoBehaviour
         handleScore();
 
         if (Input.GetMouseButton(1)) // Right Click is pressed
-            teleportBall();
+            teleportBallToPosition(Input.mousePosition);
+
+        swivelCamera();
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -74,33 +85,49 @@ public class GamePlay : MonoBehaviour
 
     void handleScore()
     {
-        if (!readyToLaunch)
+        if (gameHasStarted && !readyToLaunch)
         {
             timeOnBoard = Time.time - timeOfLaunch;
             if (Time.time - timeOfLastTick > tickTime)
             {
                 timeOfLastTick = Time.time;
                 score += scorePerTick;
-                numOfTicksEarned++;
 
                 if (numOfTicksEarned % 5 == 0)
-                    scorePerTick *= 2;
+                    scorePerTick += 100;
+
+                numOfTicksEarned++;
             }
         }
     }
 
-    void teleportBall()
+    void teleportBallToPosition(Vector3 position)
     {
-        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out RaycastHit raycastHit, float.MaxValue))
+        if (gameHasStarted)
         {
-            Vector3 intersectionPoint = raycastHit.point;
-            if (intersectionPoint.y > 0.25f && intersectionPoint.y < 0.75f && raycastHit.transform.tag == "Board")
+            Ray ray = cam.ScreenPointToRay(position);
+            if (Physics.Raycast(ray, out RaycastHit raycastHit, float.MaxValue))
             {
-                intersectionPoint.y = 0.8f;
-                ball.transform.position = intersectionPoint;
-                ball.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                Vector3 intersectionPoint = raycastHit.point;
+                if (raycastHit.transform.tag == "Board")
+                {
+                    intersectionPoint.y = 0.8f;
+                    ball.transform.position = intersectionPoint;
+                    ball.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                }
             }
+        }
+    }
+
+    void swivelCamera()
+    {
+        if (!gameHasStarted)
+        {
+            float timeFromStart = Time.time - timeOfGameStart;
+            cam.transform.position = new Vector3(Mathf.Sin(timeFromStart * cameraSwivelSpeed + Mathf.PI) * cameraSwivelDistance,
+                                                 cameraSwivelHeight,
+                                                 Mathf.Cos(timeFromStart * cameraSwivelSpeed + Mathf.PI) * cameraSwivelDistance);
+            cam.transform.LookAt(centerOfBoard);
         }
     }
 
