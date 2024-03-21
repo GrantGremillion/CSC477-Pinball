@@ -80,6 +80,28 @@ public partial class @PinballInput: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""27507338-f1f0-43a4-8d2a-e4ae847c8a4d"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Launch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9c848581-0d73-4ec0-80e4-8b07cb2fbc27"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Launch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""c36ebf62-3fcd-4c60-ac02-cf8e233c3c9c"",
                     ""path"": ""<Keyboard>/leftArrow"",
                     ""interactions"": """",

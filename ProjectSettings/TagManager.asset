@@ -6,6 +6,8 @@ TagManager:
   tags:
   - EndPosition
   - InPlay
+  - Anchor
+  - Board
   layers:
   - Default
   - TransparentFX

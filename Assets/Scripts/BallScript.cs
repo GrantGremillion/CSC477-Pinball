@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class BallScript : MonoBehaviour
 {
@@ -39,6 +40,7 @@ public class BallScript : MonoBehaviour
 
     public void Launch()
     {
+        rb.velocity = Vector3.zero;
         rb.AddForce(Vector3.forward * launchForce, ForceMode.Impulse);
     }
 
@@ -49,6 +51,16 @@ public class BallScript : MonoBehaviour
         gameScript.readyToLaunch = true;
         gameScript.disableBlockingWall();
         gameScript.scorePerTick = 100;
+    }
+
+    public void OnCollisionEnter(Collision collision)
+    {
+        if (collision.transform.tag == "Anchor")
+        {
+            print("HIT");
+            gameScript.score += 500;
+        }
+            
     }
 
 }

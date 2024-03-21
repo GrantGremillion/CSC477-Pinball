@@ -40,6 +40,10 @@ public class GamePlay : MonoBehaviour
             teleportBall();
     }
 
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     void handleKeyPresses()
     {
         if (gameHasStarted)
@@ -60,6 +64,9 @@ public class GamePlay : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.R))
                 ResetAll();
+
+            if (Input.GetKeyDown(KeyCode.Escape))
+                UnityEditor.EditorApplication.isPlaying = false;
 
             /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         }
@@ -88,7 +95,7 @@ public class GamePlay : MonoBehaviour
         if (Physics.Raycast(ray, out RaycastHit raycastHit, float.MaxValue))
         {
             Vector3 intersectionPoint = raycastHit.point;
-            if (intersectionPoint.y > 0.25f && intersectionPoint.y < 0.75f)
+            if (intersectionPoint.y > 0.25f && intersectionPoint.y < 0.75f && raycastHit.transform.tag == "Board")
             {
                 intersectionPoint.y = 0.8f;
                 ball.transform.position = intersectionPoint;
