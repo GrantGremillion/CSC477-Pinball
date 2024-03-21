@@ -37,9 +37,7 @@ public class GamePlay : MonoBehaviour
         handleScore();
 
         if (Input.GetMouseButton(1)) // Right Click is pressed
-        {
             teleportBall();
-        }
     }
 
     void handleKeyPresses()
@@ -47,7 +45,6 @@ public class GamePlay : MonoBehaviour
         if (gameHasStarted)
         {
             //////////////////////////////////////////////////  KEY  PRESSES  ////////////////////////////////////////////////////
-
 
             if (input.Default.FlipperLeftClick.WasPressedThisFrame())
                 flipperLeft.Flip();
@@ -80,9 +77,7 @@ public class GamePlay : MonoBehaviour
                 numOfTicksEarned++;
 
                 if (numOfTicksEarned % 5 == 0)
-                {
-                    scorePerTick += 100;
-                }
+                    scorePerTick *= 2;
             }
         }
     }

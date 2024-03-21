@@ -24,10 +24,16 @@ public class BallScript : MonoBehaviour
             ResetBall();
         }
 
-        if (transform.position.x < 6 && gameScript.readyToLaunch)
+        if (transform.position.x < 6  && gameScript.readyToLaunch)
         {
             gameScript.enableBlockingWall();
             gameScript.readyToLaunch = false;
+        }
+
+        if (transform.position.x > 6 && transform.position.z < 4)
+        {
+            gameScript.disableBlockingWall();
+            gameScript.readyToLaunch = true;
         }
     }
 
