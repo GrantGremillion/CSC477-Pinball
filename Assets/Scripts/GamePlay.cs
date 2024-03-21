@@ -16,13 +16,13 @@ public class GamePlay : MonoBehaviour
     public GameObject canvas;
     public int scorePerTick = 100;
     public bool gameHasStarted = false;
+    public Camera cam;
 
     private float timeOfLaunch;
     private float tickTime = 1f;
     private float timeOnBoard;
     private float timeOfLastTick;
     private int numOfTicksEarned = 0;
-
 
     void Start () {
         input = new PinballInput();
@@ -34,6 +34,42 @@ public class GamePlay : MonoBehaviour
     {
         handleKeyPresses();
 
+        handleScore();
+
+        if (Input.GetMouseButton(1)) // Right Click is pressed
+        {
+            teleportBall();
+        }
+    }
+
+    void handleKeyPresses()
+    {
+        if (gameHasStarted)
+        {
+            //////////////////////////////////////////////////  KEY  PRESSES  ////////////////////////////////////////////////////
+
+
+            if (input.Default.FlipperLeftClick.WasPressedThisFrame())
+                flipperLeft.Flip();
+
+            if (input.Default.FlipperRightClick.WasPressedThisFrame())
+                flipperRight.Flip();
+
+            if (input.Default.Launch.WasPressedThisFrame() && readyToLaunch) {
+                ball.Launch();
+                timeOfLaunch = Time.time;
+                timeOfLastTick = Time.time;
+            }
+
+            if (Input.GetKeyDown(KeyCode.R))
+                ResetAll();
+
+            /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        }
+    }
+
+    void handleScore()
+    {
         if (!readyToLaunch)
         {
             timeOnBoard = Time.time - timeOfLaunch;
@@ -49,32 +85,20 @@ public class GamePlay : MonoBehaviour
                 }
             }
         }
-
     }
 
-    void handleKeyPresses()
+    void teleportBall()
     {
-        if (gameHasStarted)
+        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out RaycastHit raycastHit, float.MaxValue))
         {
-            /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-            if (input.Default.FlipperLeftClick.WasPressedThisFrame()) {
-                flipperLeft.Flip();
+            Vector3 intersectionPoint = raycastHit.point;
+            if (intersectionPoint.y > 0.25f && intersectionPoint.y < 0.75f)
+            {
+                intersectionPoint.y = 0.8f;
+                ball.transform.position = intersectionPoint;
+                ball.GetComponent<Rigidbody>().velocity = Vector3.zero;
             }
-            else if (input.Default.FlipperRightClick.WasPressedThisFrame()) {
-                flipperRight.Flip();
-            }
-            else if (input.Default.Launch.WasReleasedThisFrame() && readyToLaunch) {
-                ball.Launch();
-                timeOfLaunch = Time.time;
-                timeOfLastTick = Time.time;
-            }
-
-            if (Input.GetKeyDown(KeyCode.R))
-                ResetAll();
-
-            /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         }
     }
 
