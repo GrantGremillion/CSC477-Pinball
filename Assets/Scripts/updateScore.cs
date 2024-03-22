@@ -13,6 +13,8 @@ public class updateScore : MonoBehaviour
     {
         if (transform.tag == "Timer")
             textBox.SetText($"Time: {gameScript.timeOnBoard.ToString()} s");
+        else if (transform.tag == "Lives")
+            textBox.SetText($"Lives: {gameScript.lives.ToString()}");
         else
             textBox.SetText("Score: " + gameScript.score.ToString());
     }
