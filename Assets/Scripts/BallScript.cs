@@ -11,6 +11,7 @@ public class BallScript : MonoBehaviour
     public Transform ballStart;
     public Transform ballEnd;
     public GamePlay gameScript;
+    public HandleUI ui;
     
     private float distanceToReset;
     private float x_limit = 6f;
@@ -29,6 +30,15 @@ public class BallScript : MonoBehaviour
         if (Vector3.Distance(transform.position, ballEnd.position) < distanceToReset) 
         {
             ResetBall();
+            gameScript.lives -= 1;
+
+            if (gameScript.lives < 1)
+            {
+                ui.endGame();
+                gameScript.gameHasStarted = false;
+            }
+
+            
         }
 
         if (transform.position.x < x_limit && gameScript.readyToLaunch)
