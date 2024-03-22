@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
 
@@ -10,28 +11,33 @@ public class BallScript : MonoBehaviour
     public Transform ballStart;
     public Transform ballEnd;
     public GamePlay gameScript;
+    
+    private float distanceToReset;
+    private float x_limit = 6f;
+    private float z_limit = 4f;
 
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        distanceToReset = ballEnd.GetComponent<SphereCollider>().radius;
     }
 
 
     void Update()
     {
-        if (Vector3.Distance(transform.position, ballEnd.position) < 1.5) 
+        if (Vector3.Distance(transform.position, ballEnd.position) < distanceToReset) 
         {
             ResetBall();
         }
 
-        if (transform.position.x < 6  && gameScript.readyToLaunch)
+        if (transform.position.x < x_limit && gameScript.readyToLaunch)
         {
             gameScript.enableBlockingWall();
             gameScript.readyToLaunch = false;
         }
 
-        if (transform.position.x > 6 && transform.position.z < 4)
+        if (transform.position.x > x_limit && transform.position.z < z_limit)
         {
             gameScript.disableBlockingWall();
             gameScript.readyToLaunch = true;
@@ -50,7 +56,7 @@ public class BallScript : MonoBehaviour
         rb.velocity = Vector3.zero;
         gameScript.readyToLaunch = true;
         gameScript.disableBlockingWall();
-        gameScript.scorePerTick = 100;
+        gameScript.scorePerTick = gameScript.defaultScorePerTick;
     }
 
     public void OnCollisionEnter(Collision collision)

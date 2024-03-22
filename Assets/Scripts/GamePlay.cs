@@ -16,12 +16,13 @@ public class GamePlay : MonoBehaviour
     public bool gameHasStarted = false;
     public bool readyToLaunch = true;
     public int scorePerTick = 100;
+    public int defaultScorePerTick = 100;
     public int score = 0;
     public int lives = 5;
     public float timeOnBoard;
 
     private Camera cam;
-    private float timeOfGameStart;
+    private Rigidbody ballRB;
     private float timeOfLaunch;
     private float tickTime = 1f;
     private float timeOfLastTick;
@@ -32,11 +33,11 @@ public class GamePlay : MonoBehaviour
 
 
     void Start () {
-        timeOfGameStart = Time.time;
         input = new PinballInput();
         input.Enable();
         canvas.SetActive(true);
         cam = GetComponent<Camera>();
+        ballRB = ball.GetComponent<Rigidbody>();
     }
 
     void Update()
@@ -113,7 +114,7 @@ public class GamePlay : MonoBehaviour
                 {
                     intersectionPoint.y = 0.8f;
                     ball.transform.position = intersectionPoint;
-                    ball.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                    ballRB.velocity = Vector3.zero;
                 }
             }
         }
@@ -123,10 +124,10 @@ public class GamePlay : MonoBehaviour
     {
         if (!gameHasStarted)
         {
-            float timeFromStart = Time.time - timeOfGameStart;
-            cam.transform.position = new Vector3(Mathf.Sin(timeFromStart * cameraSwivelSpeed + Mathf.PI) * cameraSwivelDistance,
+            float timeFromStart = Time.timeSinceLevelLoad;
+            cam.transform.position = new Vector3(centerOfBoard.position.x + Mathf.Sin(timeFromStart * cameraSwivelSpeed + Mathf.PI) * cameraSwivelDistance,
                                                  cameraSwivelHeight,
-                                                 Mathf.Cos(timeFromStart * cameraSwivelSpeed + Mathf.PI) * cameraSwivelDistance);
+                                                 centerOfBoard.position.z + Mathf.Cos(timeFromStart * cameraSwivelSpeed + Mathf.PI) * cameraSwivelDistance);
             cam.transform.LookAt(centerOfBoard);
         }
     }
