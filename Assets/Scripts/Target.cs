@@ -8,13 +8,13 @@ public class Target : MonoBehaviour {
     public bool triggered = false;
     public Vector3 up;
     public Vector3 down;
-    public Vector3 downDist = 1;
+    public float downDist = 1f;
 
 
 
     void Start() {
         up = transform.position;
-        down = transform.position - downDist
+        down = transform.position - Vector3.down * downDist;
 
     }
 
