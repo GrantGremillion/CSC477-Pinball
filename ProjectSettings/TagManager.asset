@@ -8,6 +8,7 @@ TagManager:
   - Board
   - Timer
   - Lives
+  - Score
   layers:
   - Default
   - TransparentFX

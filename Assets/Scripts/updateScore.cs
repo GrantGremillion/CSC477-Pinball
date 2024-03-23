@@ -15,7 +15,9 @@ public class updateScore : MonoBehaviour
             textBox.SetText($"Time: {gameScript.timeOnBoard.ToString()} s");
         else if (transform.tag == "Lives")
             textBox.SetText($"Lives: {gameScript.lives.ToString()}");
-        else
+        else if (transform.tag == "Score")
             textBox.SetText("Score: " + gameScript.score.ToString());
+        else
+            textBox.SetText("Final Score: " + gameScript.score.ToString());
     }
 }
