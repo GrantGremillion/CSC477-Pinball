@@ -12,6 +12,6 @@ public class Flipper : MonoBehaviour {
     }
 
     public void Flip() {
-        rb.AddForce(Vector3.forward * force, ForceMode.Impulse);
+        rb.AddForce(Vector3.forward * force);
     }
 }

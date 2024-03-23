@@ -62,10 +62,10 @@ public class GamePlay : MonoBehaviour
         {
             //////////////////////////////////////////////////  KEY  PRESSES  ////////////////////////////////////////////////////
 
-            if (input.Default.FlipperLeftClick.WasPressedThisFrame())
+            if (input.Default.FlipperLeftClick.IsPressed())
                 flipperLeft.Flip();
 
-            if (input.Default.FlipperRightClick.WasPressedThisFrame())
+            if (input.Default.FlipperRightClick.IsPressed())
                 flipperRight.Flip();
 
             if (input.Default.Launch.WasPressedThisFrame() && readyToLaunch) {
