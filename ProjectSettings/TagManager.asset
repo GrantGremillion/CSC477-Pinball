@@ -9,6 +9,7 @@ TagManager:
   - Timer
   - Lives
   - Score
+  - Bumper
   layers:
   - Default
   - TransparentFX

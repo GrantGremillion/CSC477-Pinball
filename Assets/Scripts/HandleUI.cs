@@ -42,6 +42,7 @@ public class HandleUI : MonoBehaviour
         gameScript.gameHasStarted = true;
         gameScript.readyToLaunch = true;
         gameScript.lives = 5;
+        gameScript.score = 0;
         cam.transform.SetPositionAndRotation(cameraPosition.position, cameraPosition.rotation);
         
     }

@@ -70,8 +70,7 @@ public class GamePlay : MonoBehaviour
 
             if (input.Default.Launch.WasPressedThisFrame() && readyToLaunch) {
                 ball.Launch();
-                timeOfLaunch = Time.time;
-                timeOfLastTick = Time.time;
+                startBallTimer();
             }
 
             if (Input.GetKeyDown(KeyCode.R))
@@ -106,13 +105,14 @@ public class GamePlay : MonoBehaviour
     {
         if (gameHasStarted)
         {
+
             Ray ray = cam.ScreenPointToRay(position);
             if (Physics.Raycast(ray, out RaycastHit raycastHit, float.MaxValue))
             {
                 Vector3 intersectionPoint = raycastHit.point;
                 if (raycastHit.transform.tag == "Board")
                 {
-                    intersectionPoint.y = 0.8f;
+                    intersectionPoint.y = 1.3f;
                     ball.transform.position = intersectionPoint;
                     ballRB.velocity = Vector3.zero;
                 }
@@ -142,6 +142,17 @@ public class GamePlay : MonoBehaviour
     {
         blockingWall.GetComponent<BoxCollider>().enabled = false;
         blockingWall.GetComponent<MeshRenderer>().enabled = false;
+    }
+
+    public void startBallTimer()
+    {
+        timeOfLaunch = Time.time;
+        timeOfLastTick = Time.time;
+    }
+
+    public void resetBallTimer()
+    {
+        timeOnBoard = 0f;
     }
 
     public void ResetAll()

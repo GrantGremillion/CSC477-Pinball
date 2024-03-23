@@ -10,10 +10,15 @@ public class BallScript : MonoBehaviour
     public float launchForce;
     public Transform ballStart;
     public Transform ballEnd;
+    public Transform inCannon;
     public GamePlay gameScript;
     public HandleUI ui;
+    public GameObject soundManager;
+    public GameObject cannon;
+    public ParticleSystem cannonFlame;
     
     private float distanceToReset;
+    private float distanceToLaunch = 1.5f;
     private float x_limit = 6f;
     private float z_limit = 4f;
 
@@ -30,6 +35,7 @@ public class BallScript : MonoBehaviour
         if (Vector3.Distance(transform.position, ballEnd.position) < distanceToReset) 
         {
             ResetBall();
+            gameScript.resetBallTimer();
             gameScript.lives -= 1;
 
             if (gameScript.lives < 1)
@@ -37,21 +43,9 @@ public class BallScript : MonoBehaviour
                 ui.endGame();
                 gameScript.gameHasStarted = false;
             }
-
-            
         }
 
-        if (transform.position.x < x_limit && gameScript.readyToLaunch)
-        {
-            gameScript.enableBlockingWall();
-            gameScript.readyToLaunch = false;
-        }
-
-        if (transform.position.x > x_limit && transform.position.z < z_limit)
-        {
-            gameScript.disableBlockingWall();
-            gameScript.readyToLaunch = true;
-        }
+        checkReadyToLaunch();
     }
 
     public void Launch()
@@ -71,13 +65,39 @@ public class BallScript : MonoBehaviour
 
     public void OnCollisionEnter(Collision collision)
     {
-        if (!gameScript.readyToLaunch)
+        if (collision.transform.tag == "Anchor")
         {
-            if (collision.transform.tag == "Anchor")
-                gameScript.score += 500;
+            gameScript.score += 500;
+            soundManager.GetComponent<SoundEffects>().playSound();
         }
-        
+    }
+
+    public void checkReadyToLaunch()
+    {
+        if (transform.position.x < x_limit)
+            gameScript.enableBlockingWall();
+
+        if (transform.position.x > x_limit && transform.position.z < z_limit)
+            gameScript.disableBlockingWall();
+
+        if (Vector3.Distance(transform.position, inCannon.position) < distanceToLaunch)
+        {
+            gameScript.resetBallTimer();
+            gameScript.readyToLaunch = true;
+            cannonFlame.Play();
+            cannonFlame.gameObject.SetActive(true);
+        }
+        else
+        {
+            if (gameScript.readyToLaunch)
+                gameScript.startBallTimer();
+
+            gameScript.readyToLaunch = false;
+            cannonFlame.Pause();
+            cannonFlame.gameObject.SetActive(false);
             
+        }
+
     }
 
 }
