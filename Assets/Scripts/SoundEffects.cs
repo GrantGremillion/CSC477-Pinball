@@ -4,11 +4,16 @@ using UnityEngine;
 
 public class SoundEffects : MonoBehaviour
 {
-    public AudioSource sound;
-
-
-    public void playSound()
+    public AudioSource src1;
+    public AudioSource src2;
+    
+    public void playSoundCannon()
     {
-        sound.Play();
+        src1.Play();
+    }
+
+    public void playSoundAnchor()
+    {
+        src2.Play();
     }
 }

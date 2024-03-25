@@ -51,6 +51,7 @@ public class BallScript : MonoBehaviour
     {
         rb.velocity = Vector3.zero;
         rb.AddForce(Vector3.forward * launchForce, ForceMode.Impulse);
+        soundManager.GetComponent<SoundEffects>().playSoundCannon();
     }
 
     public void ResetBall()
@@ -67,7 +68,7 @@ public class BallScript : MonoBehaviour
         if (collision.transform.tag == "Anchor")
         {
             gameScript.score += 500;
-            soundManager.GetComponent<SoundEffects>().playSound();
+            soundManager.GetComponent<SoundEffects>().playSoundAnchor();
         }
     }
 
