@@ -1,6 +1,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class GamePlay : MonoBehaviour
@@ -21,6 +22,8 @@ public class GamePlay : MonoBehaviour
     public int lives = 5;
     public float timeOnBoard;
 
+
+    public HandleUI ui;
     private Camera cam;
     private Rigidbody ballRB;
     private float timeOfLaunch;
@@ -30,6 +33,8 @@ public class GamePlay : MonoBehaviour
     private float cameraSwivelDistance = 20f;
     private float cameraSwivelHeight = 12f;
     private int numOfTicksEarned = 0;
+    public int HighScore { get; private set; }
+    public int high { get; private set; }
 
 
     void Start () {
@@ -38,6 +43,7 @@ public class GamePlay : MonoBehaviour
         canvas.SetActive(true);
         cam = GetComponent<Camera>();
         ballRB = ball.GetComponent<Rigidbody>();
+        HighScore = PlayerPrefs.GetInt(Consts.PlayerPrefs.HIGHSCORE, 0);
     }
 
     void Update()
@@ -160,5 +166,21 @@ public class GamePlay : MonoBehaviour
         ball.ResetBall();
         score = 0;
         lives = 5;
+    }
+
+
+    public void gameOver()
+    {
+        ui.endGame();
+        gameHasStarted = false;
+
+        high = PlayerPrefs.GetInt(Consts.PlayerPrefs.HIGHSCORE);
+        
+        // if player score is greater than highest score, update high score
+        if (score > high){
+            print("New high score!");
+            PlayerPrefs.SetInt(Consts.PlayerPrefs.HIGHSCORE, score);
+        }
+        
     }
 }

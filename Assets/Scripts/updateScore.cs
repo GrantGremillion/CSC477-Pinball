@@ -20,7 +20,18 @@ public class updateScore : MonoBehaviour
         else if (transform.tag == "Score")
             textBox.SetText("Score: " + gameScript.score.ToString());
 
-        else
+        else if (transform.tag == "Final Score")
             textBox.SetText("Final Score: " + gameScript.score.ToString());
+
+        else if (transform.tag == "High Score")
+            checkHighScore();
+    }
+
+    public void checkHighScore()
+    {
+        if (gameScript.score > gameScript.high)
+            textBox.SetText("High Score: " + gameScript.score.ToString());
+        else
+            textBox.SetText("High Score: " + gameScript.high.ToString());
     }
 }

@@ -40,8 +40,7 @@ public class BallScript : MonoBehaviour
 
             if (gameScript.lives < 1)
             {
-                ui.endGame();
-                gameScript.gameHasStarted = false;
+                gameScript.gameOver();
             }
         }
 
