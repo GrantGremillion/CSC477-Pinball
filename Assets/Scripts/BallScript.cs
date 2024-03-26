@@ -18,17 +18,18 @@ public class BallScript : MonoBehaviour
     public GameObject soundManager;
     public GameObject cannon;
     public ParticleSystem cannonFlame;
-
     public Target target;
     public TargetTracker targetTracker;
     
-    
     private float distanceToReset;
     private float distanceToLaunch = 1.5f;
-    private float x_limit = 6f;
-    private float z_limit = 4f;
+    private float x_limit = 3.14f;
+    private float x_limit2 = 5.61f;
+    private float z_limit = 8.27f;
 
+    private int anchorScore = 500;
     private int targetScore = 1000;
+    private int pointCircleScore = 2000;
 
 
     void Start()
@@ -84,7 +85,7 @@ public class BallScript : MonoBehaviour
     {
         if (collision.transform.tag == "Anchor")
         {
-            gameScript.score += 500;
+            gameScript.score += anchorScore;
             soundManager.GetComponent<SoundEffects>().playSoundAnchor();
         }
         else if (collision.transform.tag == "Target")
@@ -93,7 +94,7 @@ public class BallScript : MonoBehaviour
             collision.gameObject.GetComponent<Target>().Drop();    
         }
         else if (collision.transform.tag == "Point Circle") {
-            gameScript.score += 2000;
+            gameScript.score += pointCircleScore;
         }
         
     }
@@ -112,7 +113,7 @@ public class BallScript : MonoBehaviour
         if (transform.position.x < x_limit)
             gameScript.enableBlockingWall();
 
-        if (transform.position.x > x_limit && transform.position.z < z_limit)
+        if (transform.position.x > x_limit2 && transform.position.z < z_limit)
             gameScript.disableBlockingWall();
 
         if (Vector3.Distance(transform.position, inCannon.position) < distanceToLaunch)

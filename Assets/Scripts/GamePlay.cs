@@ -139,22 +139,25 @@ public class GamePlay : MonoBehaviour
         if (!gameHasStarted)
         {
             float timeFromStart = Time.timeSinceLevelLoad;
-            cam.transform.position = new Vector3(centerOfBoard.position.x + Mathf.Sin(timeFromStart * cameraSwivelSpeed + Mathf.PI) * cameraSwivelDistance,
+            float xOffSet = Mathf.Sin(timeFromStart * cameraSwivelSpeed + Mathf.PI) * cameraSwivelDistance;
+            float zOffSet = Mathf.Cos(timeFromStart * cameraSwivelSpeed + Mathf.PI) * cameraSwivelDistance;
+
+            cam.transform.position = new Vector3(centerOfBoard.position.x + xOffSet,
                                                  cameraSwivelHeight,
-                                                 centerOfBoard.position.z + Mathf.Cos(timeFromStart * cameraSwivelSpeed + Mathf.PI) * cameraSwivelDistance);
+                                                 centerOfBoard.position.z + zOffSet);
             cam.transform.LookAt(centerOfBoard);
         }
     }
 
     public void enableBlockingWall()
     {
-        blockingWall.GetComponent<BoxCollider>().enabled = true;
+        blockingWall.GetComponent<MeshCollider>().enabled = true;
         blockingWall.GetComponent<MeshRenderer>().enabled = true;
     }
 
     public void disableBlockingWall()
     {
-        blockingWall.GetComponent<BoxCollider>().enabled = false;
+        blockingWall.GetComponent<MeshCollider>().enabled = false;
         blockingWall.GetComponent<MeshRenderer>().enabled = false;
     }
 
