@@ -15,6 +15,7 @@ public class GamePlay : MonoBehaviour
     public Transform centerOfBoard;
     public Transform cameraPosition;
     public GameObject soundManager;
+    public TargetTracker targetTracker;
     public bool gameHasStarted = false;
     public bool readyToLaunch = true;
     public int scorePerTick = 100;

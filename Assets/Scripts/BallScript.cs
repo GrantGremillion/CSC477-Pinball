@@ -20,6 +20,7 @@ public class BallScript : MonoBehaviour
     public ParticleSystem cannonFlame;
 
     public Target target;
+    public TargetTracker targetTracker;
     
     
     private float distanceToReset;
@@ -44,6 +45,11 @@ public class BallScript : MonoBehaviour
             ResetBall();
             gameScript.resetBallTimer();
             gameScript.lives -= 1;
+            GameObject[] targets = GameObject.FindGameObjectsWithTag("Target");
+            for (int i = 0; i < targets.Length; i++)
+            {
+                targets[i].GetComponent<Target>().triggered = false;
+            }
 
             if (gameScript.lives < 1)
             {
