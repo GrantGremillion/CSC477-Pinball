@@ -118,7 +118,7 @@ public class GamePlay : MonoBehaviour
                 Vector3 intersectionPoint = raycastHit.point;
                 if (raycastHit.transform.tag == "Board")
                 {
-                    intersectionPoint.y = 1.3f;
+                    intersectionPoint.y = 4.7f;
                     ball.transform.position = intersectionPoint;
                     ballRB.velocity = Vector3.zero;
                 }

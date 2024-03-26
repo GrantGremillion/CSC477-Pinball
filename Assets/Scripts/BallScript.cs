@@ -11,11 +11,14 @@ public class BallScript : MonoBehaviour
     public Transform ballStart;
     public Transform ballEnd;
     public Transform inCannon;
+    public Transform aimFor;
+    public Transform outCannon;
     public GamePlay gameScript;
     public HandleUI ui;
     public GameObject soundManager;
     public GameObject cannon;
     public ParticleSystem cannonFlame;
+    
     
     private float distanceToReset;
     private float distanceToLaunch = 1.5f;
@@ -50,7 +53,11 @@ public class BallScript : MonoBehaviour
     public void Launch()
     {
         rb.velocity = Vector3.zero;
-        rb.AddForce(Vector3.forward * launchForce, ForceMode.Impulse);
+        transform.position = outCannon.position;
+
+        Vector3 dirr = Vector3.Normalize(aimFor.position - transform.position);
+
+        rb.AddForce(dirr * launchForce, ForceMode.Impulse);
         soundManager.GetComponent<SoundEffects>().playSoundCannon();
     }
 
