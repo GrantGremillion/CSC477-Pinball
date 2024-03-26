@@ -12,6 +12,7 @@ TagManager:
   - Bumper
   - Final Score
   - High Score
+  - Target
   layers:
   - Default
   - TransparentFX

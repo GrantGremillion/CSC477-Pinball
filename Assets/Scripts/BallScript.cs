@@ -18,12 +18,16 @@ public class BallScript : MonoBehaviour
     public GameObject soundManager;
     public GameObject cannon;
     public ParticleSystem cannonFlame;
+
+    public Target target;
     
     
     private float distanceToReset;
     private float distanceToLaunch = 1.5f;
     private float x_limit = 6f;
     private float z_limit = 4f;
+
+    private int targetScore = 1000;
 
 
     void Start()
@@ -76,6 +80,11 @@ public class BallScript : MonoBehaviour
         {
             gameScript.score += 500;
             soundManager.GetComponent<SoundEffects>().playSoundAnchor();
+        }
+        if (collision.transform.tag == "Target")
+        {
+            gameScript.score += targetScore;
+            collision.gameObject.GetComponent<Target>().Drop();    
         }
     }
 
