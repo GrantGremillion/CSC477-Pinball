@@ -13,6 +13,7 @@ TagManager:
   - Final Score
   - High Score
   - Target
+  - Point Circle
   layers:
   - Default
   - TransparentFX

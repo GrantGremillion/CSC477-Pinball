@@ -6,6 +6,7 @@ public class SoundEffects : MonoBehaviour
 {
     public AudioSource src1;
     public AudioSource src2;
+    public AudioSource src3;
     
     public void playSoundCannon()
     {
@@ -15,5 +16,10 @@ public class SoundEffects : MonoBehaviour
     public void playSoundAnchor()
     {
         src2.Play();
+    }
+
+    public void playSoundCircle()
+    {
+        src3.Play();
     }
 }
