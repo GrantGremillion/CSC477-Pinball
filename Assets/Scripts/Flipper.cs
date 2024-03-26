@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Flipper : MonoBehaviour {
 
+
     public Rigidbody rb;
     public float force;
 
@@ -13,5 +14,6 @@ public class Flipper : MonoBehaviour {
 
     public void Flip() {
         rb.AddForce(Vector3.forward * force);
+        
     }
 }

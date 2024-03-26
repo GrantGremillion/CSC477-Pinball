@@ -14,6 +14,7 @@ public class GamePlay : MonoBehaviour
     public GameObject canvas;
     public Transform centerOfBoard;
     public Transform cameraPosition;
+    public GameObject soundManager;
     public bool gameHasStarted = false;
     public bool readyToLaunch = true;
     public int scorePerTick = 100;
@@ -68,8 +69,14 @@ public class GamePlay : MonoBehaviour
         {
             //////////////////////////////////////////////////  KEY  PRESSES  ////////////////////////////////////////////////////
 
+            if (input.Default.FlipperLeftClick.WasPressedThisFrame())
+                soundManager.GetComponent<SoundEffects>().playSoundFlipperL();
+
             if (input.Default.FlipperLeftClick.IsPressed())
                 flipperLeft.Flip();
+
+            if (input.Default.FlipperRightClick.WasPressedThisFrame())
+                soundManager.GetComponent<SoundEffects>().playSoundFlipperR();
 
             if (input.Default.FlipperRightClick.IsPressed())
                 flipperRight.Flip();
