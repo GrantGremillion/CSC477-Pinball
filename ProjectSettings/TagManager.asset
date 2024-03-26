@@ -12,6 +12,7 @@ TagManager:
   - Bumper
   - Final Score
   - High Score
+  - Point Circle
   layers:
   - Default
   - TransparentFX

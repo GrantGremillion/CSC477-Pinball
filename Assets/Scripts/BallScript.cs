@@ -77,6 +77,19 @@ public class BallScript : MonoBehaviour
             gameScript.score += 500;
             soundManager.GetComponent<SoundEffects>().playSoundAnchor();
         }
+        else if (collision.transform.tag == "Point Circle") {
+            gameScript.score += 2000;
+        }
+        
+    }
+
+    private void OnTriggerEnter(Collider other) {
+
+        if (other.CompareTag("Point Circle")) {
+            var PointCircle = other.GetComponent<PointCircle>();
+            PointCircle.Hit();
+        }
+        
     }
 
     public void checkReadyToLaunch()
